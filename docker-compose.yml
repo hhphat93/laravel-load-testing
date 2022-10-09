@@ -1,11 +1,25 @@
 version: '3'
 services:
-  # server ubuntu 1
-  ubuntu1:
+  loadbalance:
     build:
       context: .
       dockerfile: Dockerfile
-    image: server_ubuntu1
+    image: server_ubuntu
+    container_name: lb
+    ports:
+      - 9000:80
+    volumes:
+      - ./server_loadbalance/nginx/sites-available:/etc/nginx/sites-available
+      - ./server_loadbalance/html:/var/www/html
+      - ./server_loadbalance/log:/var/log/nginx
+      #php.ini
+    tty: true
+    networks:
+      - webserver_network
+
+  # server ubuntu 1
+  ubuntu1:
+    image: server_ubuntu
     container_name: u1
     ports:
       - 9001:80
@@ -18,8 +32,9 @@ services:
     networks:
       - webserver_network
 
+  # server ubuntu 2
   ubuntu2:
-    image: server_ubuntu1
+    image: server_ubuntu
     container_name: u2
     ports:
       - 9002:80
@@ -27,21 +42,6 @@ services:
       - ./server_ubuntu2/nginx/sites-available:/etc/nginx/sites-available
       - ./server_ubuntu2/html:/var/www/html
       - ./server_ubuntu2/log:/var/log/nginx
-      #php.ini
-    tty: true
-    networks:
-      - webserver_network
-
-  loadbalance:
-    image: server_ubuntu1
-    container_name: lb
-    ports:
-      - 9000:80
-    volumes:
-      - ./server_loadbalance/nginx/sites-available:/etc/nginx/sites-available
-      - ./server_loadbalance/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-      - ./server_loadbalance/html:/var/www/html
-      - ./server_loadbalance/log:/var/log/nginx
       #php.ini
     tty: true
     networks:
