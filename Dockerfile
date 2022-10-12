@@ -26,6 +26,7 @@ RUN apt-get install php8.1-fpm php8.1-common php8.1-mysql php8.1-xml php8.1-xmlr
 
 # Enviroment
 ENV php_conf /etc/php/8.1/fpm/php.ini
+ENV php_conf_user /etc/php/8.1/fpm/pool.d/www.conf
 ENV nginx_conf /etc/nginx/nginx.conf
 ENV supervisor_conf /etc/supervisor/supervisord.conf
 
@@ -35,7 +36,12 @@ RUN apt-get install -y nginx supervisor && \
 
 # Enable php-fpm on nginx virtualhost configuration
 RUN sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' ${php_conf} && \
-    echo "\ndaemon off;" >> ${nginx_conf}
+    echo "\ndaemon off;" >> ${nginx_conf} && \
+    sed -i -e 's/user www-data;/user webuser;/g' ${nginx_conf} && \
+    sed -i -e 's/user = www-data/user = webuser/g' ${php_conf_user} && \
+    sed -i -e 's/group = www-data/group = webuser/g' ${php_conf_user} && \
+    sed -i -e 's/listen.owner = www-data/listen.owner = webuser/g' ${php_conf_user} && \
+    sed -i -e 's/listen.group = www-data/listengroup = webuser/g' ${php_conf_user}
 
 COPY supervisord.conf ${supervisor_conf}
  
@@ -54,15 +60,11 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN node --version
 RUN npm --version
 
-# Install SSL
-RUN sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
-        -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=IT Department/CN=localhost"
-
 # Make folder 
 RUN mkdir -p /run/php && \
     mkdir -p /var/www/html && \
-    chown -R www-data:www-data /var/www/html && \
-    chown -R www-data:www-data /run/php
+    chown -R webuser:webuser /var/www/html && \
+    chown -R webuser:webuser /run/php
     
 # Configure Services and Port
 COPY start.sh /start.sh

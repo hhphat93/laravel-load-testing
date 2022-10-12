@@ -8,11 +8,11 @@ services:
     container_name: lb
     ports:
       - 9000:80
-      - 443:443
+      - 444:443
     volumes:
       - ./server_loadbalance/nginx/sites-available:/etc/nginx/sites-available
       - ./server_loadbalance/log:/var/log/nginx
-      - ./server_loadbalance/ssl/self-signed.conf:/etc/nginx/snippets/self-signed.conf
+      - ./server_loadbalance/ssl/:/etc/nginx/ssl
       #php.ini
     tty: true
     networks:

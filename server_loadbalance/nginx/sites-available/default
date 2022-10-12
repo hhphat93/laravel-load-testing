@@ -24,7 +24,8 @@ server {
 
     server_name localhost;
    
-    include snippets/self-signed.conf;
+    ssl_certificate     /etc/nginx/ssl/test-ssl.local.crt;
+    ssl_certificate_key /etc/nginx/ssl/test-ssl.local.key;
     
     location / {
         proxy_pass http://loadbalance;
