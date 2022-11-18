@@ -67,10 +67,6 @@ RUN mkdir -p /run/php && \
     chown -R webuser:webuser /run/php
     
 # Configure Services and Port
-COPY start.sh /start.sh
+CMD /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 
-RUN chmod +x start.sh
-
-CMD ./start.sh
-
-EXPOSE 80 443
+EXPOSE 9000 9001 9002 444

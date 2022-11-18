@@ -56,11 +56,12 @@ services:
     env_file:
       - ./db_master/mysql_master.env
     container_name: "mysql_master"
+    # command: --default-authentication-plugin=mysql_native_password
     restart: "no"
     ports:
       - 4406:3306
     volumes:
-      - ./db_master/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./db_master/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf:rw
       - ./db_master/data:/var/lib/mysql
     networks:
       - webserver_network
@@ -71,6 +72,7 @@ services:
     env_file:
       - ./db_slave/mysql_slave.env
     container_name: "mysql_slave"
+    # command: --default-authentication-plugin=mysql_native_password
     restart: "no"
     ports:
       - 5506:3306

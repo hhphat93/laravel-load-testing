@@ -1,6 +1,6 @@
 upstream loadbalance {
-    server 172.22.0.1:9001; # server_ubuntu1
-    server 172.22.0.1:9002; # server_ubuntu2
+    server 172.23.0.1:9001; # server_ubuntu1
+    #server 172.23.0.1:9002; # server_ubuntu2
 }
 
 server {

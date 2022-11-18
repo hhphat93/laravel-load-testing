@@ -1,15 +1,16 @@
 #!/bin/bash
 
-docker-compose down -v
-rm -rf ./db_master/data/*
-rm -rf ./db_slave/data/*
-docker-compose up -d
+# docker-compose down -v
+# rm -rf ./db_master/data/*
+# rm -rf ./db_slave/data/*
+# docker-compose up -d
 
 until docker exec mysql_master sh -c 'export MYSQL_PWD=111; mysql -u root -e ";"'
 do
     echo "Waiting for mysql_master database connection..."
     sleep 4
 done
+
 
 priv_stmt='CREATE USER "mydb_slave_user"@"%" IDENTIFIED BY "mydb_slave_pwd"; GRANT REPLICATION SLAVE ON *.* TO "mydb_slave_user"@"%"; FLUSH PRIVILEGES;'
 docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root -e '$priv_stmt'"
