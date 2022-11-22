@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -11,16 +12,47 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-
-
     public function index()
     {
         // $this->phpGenerator();
+        // $this->testUnset();
+        // $this->runBackground();
+    }
+
+    /**
+     * Run in background
+     */
+    private function runBackground() {
+        Log::info('start');
+        // exec("php /var/www/html/artisan SendEmails"); // no send in background
+
+        exec("php /var/www/html/artisan SendEmails > /dev/null &"); // no $output will send in background
+
+        Log::info('end');
+    }
+
+    function execInBackground($cmd) {
+        if (substr(php_uname(), 0, 7) == "Windows"){
+            pclose(popen("start /B ". $cmd, "r"));
+        }
+        else {
+            exec($cmd . " > /dev/null &");
+        }
+    }
+
+    /**
+     * Tham chieu &
+     */
+    private function testUnset() {
         $a = 5;
         $b = &$a;
-        $b = null; // just say $b should not point to any variable
-        print $a; // 5
+        unset($b);
+        print_r($a . "<br>"); // result: $a = 5;
+
+        $a = 5;
+        $b = &$a;
+        $b = null;
+        print_r($a ? $a : 'null'); // result: $a = null;
     }
 
     /**

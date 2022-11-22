@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# docker-compose down -v
-# rm -rf ./db_master/data/*
-# rm -rf ./db_slave/data/*
-# docker-compose up -d
+docker-compose down -v
+rm -rf ./db_master/data/*
+rm -rf ./db_slave/data/*
+docker-compose up -d
 
 until docker exec mysql_master sh -c 'export MYSQL_PWD=111; mysql -u root -e ";"'
 do

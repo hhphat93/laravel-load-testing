@@ -1,6 +1,6 @@
 upstream loadbalance {
-    server 172.23.0.1:9001; # server_ubuntu1
-    #server 172.23.0.1:9002; # server_ubuntu2
+    server 192.168.48.1:9001; # server_ubuntu1
+    #server 192.168.48.1:9002; # server_ubuntu2
 }
 
 server {
@@ -13,7 +13,7 @@ server {
     access_log /var/log/nginx/access.log;
 
     location / {
-        return 301 https://$host$request_uri;
+        return 301 https://$host:444$request_uri;
     }
 }
 

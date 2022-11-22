@@ -15,3 +15,6 @@ sudo find . -type d -exec chmod 755 {} \;
 
 php
 cat /etc/php/8.1/fpm/php.ini
+
+list process
+ps aux | grep php
