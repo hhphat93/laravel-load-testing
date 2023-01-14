@@ -48,8 +48,8 @@ COPY supervisord.conf ${supervisor_conf}
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install NVM
-ENV NODE_VERSION=16.17.1
+# Install NVM, now using node v19.4.0 (npm v9.2.0) - laravel ^9.19
+ENV NODE_VERSION=19.4.0
 RUN apt install -y curl
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 ENV NVM_DIR=/root/.nvm

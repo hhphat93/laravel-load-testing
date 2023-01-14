@@ -74,7 +74,6 @@ services:
       - ./db_slave/mysql_slave.env
     container_name: "mysql_slave"
     command: --default-authentication-plugin=mysql_native_password
-    restart: "no"
     ports:
       - 5506:3306
     depends_on:
@@ -83,6 +82,17 @@ services:
       - ./db_slave/conf:/etc/mysql/conf.d
       - ./db_slave/log/mysql:/var/log/mysql
       - ./db_slave/data:/var/lib/mysql
+    networks:
+      - webserver_network
+
+  redis:
+    image: redis
+    container_name: "server_redis"
+    ports:
+      - 6379:6379
+    command: redis-server --save 60 1 --loglevel warning
+    volumes: 
+      - ./redis/data:/data
     networks:
       - webserver_network
 

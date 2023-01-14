@@ -12,6 +12,7 @@ permission laravel
 https://stackoverflow.com/questions/30639174/how-to-set-up-file-permissions-for-laravel
 sudo find . -type f -exec chmod 664 {} \;   
 sudo find . -type d -exec chmod 755 {} \;
+sudo chown -R webuser:webuser .
 
 php
 cat /etc/php/8.1/fpm/php.ini
