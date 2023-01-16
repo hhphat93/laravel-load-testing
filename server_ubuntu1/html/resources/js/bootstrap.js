@@ -12,17 +12,7 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-import { createApp } from 'vue'
 
-createApp({
-  data() {
-    return {
-      message: 'abc'
-    }
-  }
-})
-.component('chat-layout', import('../components/ChatLayout.vue'))
-.mount('#app')
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

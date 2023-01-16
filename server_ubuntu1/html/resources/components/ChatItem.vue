@@ -1,20 +1,26 @@
 <template>
-	<div class="message">
+	<div class="message" :class="{'is-current-user': $root.currentUserLogin.id === message.user.id}">
 		<div class="message-item user-name">
-			MTD
+			{{ message.user.name}}
 		</div>
 		<div class="message-item timestamp">
-			| 11:21:32: 
+			| {{ message.created_at.split(' ')[1] }}:
 		</div>
 		<div class="message-item text-message">
-			Hello how are you
+			{{ message.message }}
 		</div>
 	</div>
 </template>
 
 <script>
 	export default {
-	}
+        props: {
+          message: {
+            type: Object,
+            default: {}
+          }
+        }
+    }
 </script>
 
 <style lang="scss" scoped>

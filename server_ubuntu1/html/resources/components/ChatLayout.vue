@@ -6,12 +6,12 @@
             </div>
             <div class="messages">
                 <div class="messages-content">
-                    <ChatItem v-for="n in 30" :key="n"></ChatItem>
+                    <ChatItem v-for="(message, index) in list_messages" :key="index" :message="message"></ChatItem>
                 </div>
             </div>
             <div class="message-box">
-                <textarea type="text" class="message-input" placeholder="Type message..."></textarea>
-                <button type="submit" class="message-submit">Send</button>
+                <textarea type="text" v-model="message" @keyup.enter="sendMessage" class="message-input" placeholder="Type message..." ></textarea>
+                <button type="submit" class="message-submit" @click="sendMessage">Send</button>
             </div>
         </div>
         <div class="bg"></div>
@@ -20,9 +20,62 @@
 
 <script>
     import ChatItem from './ChatItem.vue'
+
+    // import laravelEchoServer from '../../laravel-echo-server.json'
+
     export default {
         components: {
             ChatItem
+        },
+        data() {
+            return {
+                message: '',
+                list_messages: [],
+                currentUserLogin: {},
+                // echoCredentials: {
+                //     appId: laravelEchoServer.clients[0].appId, //  appId in laravel-echo-server.json
+                //     key: laravelEchoServer.clients[0].key // key in laravel-echo-server.json
+                // }
+            }
+        },
+        created () {
+            this.loadMessage()
+
+            Echo.channel('chatroom')
+                .listen('MessagePosted', (data) => {
+                let message = data.message
+                message.user = data.user
+                this.list_messages.push(message)
+            })
+        },
+        methods: {
+            async getCurrentUserLogin() {
+                try {
+                    const response = await axios.get('/getUserLogin')
+                    this.currentUserLogin = response.data
+                } catch (error) {
+                    console.log(error)
+                }
+            },
+            async loadMessage() {
+                try {
+                    const response = await axios.get('/messages')
+                    this.list_messages = response.data
+                } catch (error) {
+                    console.log(error)
+                }
+            },
+            async sendMessage() {
+                try {
+                    const response = await axios.post('/messages', {
+                        message: this.message
+                    })
+                    this.list_messages.push(response.data.message)
+                    this.message = ''
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }
     }
 </script>
@@ -54,7 +107,7 @@ Chat
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);  
+    transform: translate(-50%, -50%);
     width: 500px;
     height: 80vh;
     max-height: 700px;
@@ -79,7 +132,7 @@ Chat Title
     text-transform: uppercase;
     text-align: left;
     padding: 10px 10px 10px 50px;
-  
+
     h1, h2 {
         font-weight: normal;
         font-size: 16px;
@@ -91,7 +144,7 @@ Chat Title
         font-size: 8px;
         letter-spacing: 1px;
     }
-  
+
     .avatar {
         position: absolute;
         z-index: 1;
@@ -119,7 +172,7 @@ Message Box
     background: rgba(0, 0, 0, 0.3);
     padding: 10px;
     position: relative;
-  
+
     & .message-input {
         background: none;
         border: none;
@@ -127,7 +180,6 @@ Message Box
         resize: none;
         color: rgba(255, 255, 255, .7);
         font-size: 11px;
-        height: 17px;
         margin: 0;
         padding-right: 20px;
         width: 265px;
@@ -135,7 +187,7 @@ Message Box
     textarea:focus:-webkit-placeholder{
         color: transparent;
     }
-  
+
     & .message-submit {
         position: absolute;
         z-index: 1;
@@ -147,7 +199,7 @@ Message Box
         font-size: 10px;
         text-transform: uppercase;
         line-height: 1;
-        padding: 6px 10px; 
+        padding: 6px 10px;
         border-radius: 10px;
         outline: none!important;
         transition: background .2s ease;

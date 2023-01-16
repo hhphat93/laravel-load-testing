@@ -24,8 +24,9 @@
 		}
 	</style>
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {{-- <script defer src="http://0.0.0.0:6001/socket.io/socket.io.js"></script> --}}
+    <script defer type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 </head>
 <body>
 	<div id="app">
