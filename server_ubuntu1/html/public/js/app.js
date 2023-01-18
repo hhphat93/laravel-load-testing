@@ -19615,7 +19615,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this = this;
     this.loadMessage();
-    Echo.channel('chatroom').listen('MessagePosted', function (data) {
+    Echo.channel('laravel_database_chatroom').listen('MessagePosted', function (data) {
+      console.log('listen');
       var message = data.message;
       message.user = data.user;
       _this.list_messages.push(message);
@@ -22905,6 +22906,15 @@ var NullChannel = /*#__PURE__*/function (_Channel) {
       return this;
     }
     /**
+     * Listen for all events on the channel instance.
+     */
+
+  }, {
+    key: "listenToAll",
+    value: function listenToAll(callback) {
+      return this;
+    }
+    /**
      * Stop listening for an event on the channel instance.
      */
 
@@ -23479,6 +23489,15 @@ var NullConnector = /*#__PURE__*/function (_Connector) {
       return new NullPrivateChannel();
     }
     /**
+     * Get a private encrypted channel instance by name.
+     */
+
+  }, {
+    key: "encryptedPrivateChannel",
+    value: function encryptedPrivateChannel(name) {
+      return new NullPrivateChannel();
+    }
+    /**
      * Get a presence channel instance by name.
      */
 
@@ -23605,6 +23624,17 @@ var Echo = /*#__PURE__*/function () {
     key: "leaveChannel",
     value: function leaveChannel(channel) {
       this.connector.leaveChannel(channel);
+    }
+    /**
+     * Leave all channels.
+     */
+
+  }, {
+    key: "leaveAllChannels",
+    value: function leaveAllChannels() {
+      for (var channel in this.connector.channels) {
+        this.leaveChannel(channel);
+      }
     }
     /**
      * Listen for an event on a channel instance.

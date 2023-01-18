@@ -25,7 +25,7 @@
 	</style>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    {{-- <script defer src="http://0.0.0.0:6001/socket.io/socket.io.js"></script> --}}
+    <script defer src="http://localhost:6001/socket.io/socket.io.js"></script>
     <script defer type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 </head>
 <body>

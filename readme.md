@@ -19,3 +19,11 @@ cat /etc/php/8.1/fpm/php.ini
 
 list process
 ps aux | grep php
+
+chat realtime: https://viblo.asia/p/viet-ung-dung-chat-realtime-voi-laravel-vuejs-redis-va-socketio-laravel-echo-Qpmle9Q9lrd
+    npm install --save laravel-echo
+    npm install -g laravel-echo-server
+
+    npx mix watch
+    laravel-echo-server start
+    php artisan queue:work

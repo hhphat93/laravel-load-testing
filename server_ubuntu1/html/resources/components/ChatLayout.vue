@@ -41,11 +41,12 @@
         created () {
             this.loadMessage()
 
-            Echo.channel('chatroom')
+            Echo.channel('laravel_database_chatroom')
                 .listen('MessagePosted', (data) => {
-                let message = data.message
-                message.user = data.user
-                this.list_messages.push(message)
+                    console.log('listen')
+                    let message = data.message
+                    message.user = data.user
+                    this.list_messages.push(message)
             })
         },
         methods: {
