@@ -29,10 +29,9 @@ services:
       - ./html:/var/www/html
       #- ./server_ubuntu1/html:/var/www/html
       - ./server_ubuntu1/log:/var/log/nginx
-      - ./server_ubuntu1/php/pool.d/:/etc/php/8.1/fpm/pool.d/
+      - ./server_ubuntu1/php:/etc/php/
       - ./server_ubuntu1/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_ubuntu1/nginx/sites-available:/etc/nginx/sites-available
-      #php.ini
     working_dir: /var/www/html
     tty: true
     networks:
@@ -48,10 +47,9 @@ services:
       - ./html:/var/www/html
       #- ./server_ubuntu2/html:/var/www/html
       - ./server_ubuntu2/log:/var/log/nginx
-      - ./server_ubuntu2/php/pool.d/:/etc/php/8.1/fpm/pool.d/
+      - ./server_ubuntu2/php:/etc/php/
       - ./server_ubuntu2/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_ubuntu2/nginx/sites-available:/etc/nginx/sites-available
-      #php.ini
     working_dir: /var/www/html
     tty: true
     networks:

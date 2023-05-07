@@ -17,6 +17,21 @@ class HomeController extends Controller
         // $this->phpGenerator();
         // $this->testUnset();
         // $this->runBackground();
+        // echo 'Time Limit = ' . ini_get('max_execution_time') ;
+        // for ($i=0; $i < 10000000; $i++) {
+        //     echo $i;
+        // }
+    }
+
+    /**
+     * Test timeout
+     */
+    public function testTimeout() {
+        // dd(ini_get('max_execution_time'));
+
+        while(true){
+
+        }
     }
 
     /**

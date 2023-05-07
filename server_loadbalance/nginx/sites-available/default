@@ -1,6 +1,6 @@
 upstream loadbalance {
-    server 192.168.224.6; # server_ubuntu1
-    server 192.168.224.3; # server_ubuntu2
+    server u1; # server_ubuntu1
+    server u2; # server_ubuntu2
 }
 
 server {

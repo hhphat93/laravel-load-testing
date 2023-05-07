@@ -28,7 +28,16 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        sleep(5);
-        Log::info('send mail in background');
+        // sleep(5);
+        // Log::info('send mail in background');
+        try {
+            while(true){
+                //to infinity and beyond...
+                $this->info('aaa');
+            }
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+
     }
 }
