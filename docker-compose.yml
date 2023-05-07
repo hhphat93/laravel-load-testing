@@ -44,7 +44,6 @@ services:
     container_name: u2
     ports:
       - 9002:80
-      - 6002:6001
     volumes:
       - ./html:/var/www/html
       #- ./server_ubuntu2/html:/var/www/html
@@ -57,7 +56,6 @@ services:
     tty: true
     networks:
       - webserver_network
-
 
   # database master
   mysql_master:
