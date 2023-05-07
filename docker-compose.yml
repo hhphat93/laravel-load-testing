@@ -26,12 +26,14 @@ services:
       - 9001:80
       - 6001:6001
     volumes:
+      - ./html:/var/www/html
+      #- ./server_ubuntu1/html:/var/www/html
+      - ./server_ubuntu1/log:/var/log/nginx
       - ./server_ubuntu1/php/pool.d/:/etc/php/8.1/fpm/pool.d/
       - ./server_ubuntu1/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_ubuntu1/nginx/sites-available:/etc/nginx/sites-available
-      - ./server_ubuntu1/html:/var/www/html
-      - ./server_ubuntu1/log:/var/log/nginx
       #php.ini
+    working_dir: /var/www/html
     tty: true
     networks:
       - webserver_network
@@ -42,25 +44,31 @@ services:
     container_name: u2
     ports:
       - 9002:80
+      - 6002:6001
     volumes:
-      - ./server_ubuntu2/nginx/sites-available:/etc/nginx/sites-available
-      - ./server_ubuntu2/html:/var/www/html
+      - ./html:/var/www/html
+      #- ./server_ubuntu2/html:/var/www/html
       - ./server_ubuntu2/log:/var/log/nginx
+      - ./server_ubuntu2/php/pool.d/:/etc/php/8.1/fpm/pool.d/
+      - ./server_ubuntu2/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./server_ubuntu2/nginx/sites-available:/etc/nginx/sites-available
       #php.ini
+    working_dir: /var/www/html
     tty: true
     networks:
       - webserver_network
 
+
   # database master
   mysql_master:
-    image: mysql:8.0.31
+    image: mysql:5.7.42
     env_file:
       - ./db_master/mysql_master.env
     container_name: "mysql_master"
     command: --default-authentication-plugin=mysql_native_password
     restart: "no"
     ports:
-      - 4406:3306
+      - 3307:3306
     volumes:
       - ./db_master/conf:/etc/mysql/conf.d
       - ./db_master/log/mysql:/var/log/mysql
@@ -70,13 +78,13 @@ services:
 
   # database slave
   mysql_slave:
-    image: mysql:8.0.31
+    image: mysql:5.7.42
     env_file:
       - ./db_slave/mysql_slave.env
     container_name: "mysql_slave"
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - 5506:3306
+      - 3308:3306
     depends_on:
       - mysql_master
     volumes:

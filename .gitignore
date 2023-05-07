@@ -50,5 +50,11 @@ Thumbs.db
 
 # ignore database
 db_master/data
+db_master/log
+
 db_slave/data
+db_slave/log
+
+# ignore redis
+redis/data
 

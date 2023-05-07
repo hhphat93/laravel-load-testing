@@ -15,6 +15,8 @@ done
 priv_stmt='CREATE USER "mydb_slave_user"@"%" IDENTIFIED BY "mydb_slave_pwd"; GRANT REPLICATION SLAVE ON *.* TO "mydb_slave_user"@"%"; FLUSH PRIVILEGES;'
 docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root -e '$priv_stmt'"
 
+#neu ket o day thi set quyen 777 folder, rui 644 cho db_master/conf/mysql_master.cnf, db_slave/conf/mysql_slave.cnf
+
 until docker-compose exec mysql_slave sh -c 'export MYSQL_PWD=111; mysql -u root -e ";"'
 do
     echo "Waiting for mysql_slave database connection..."
