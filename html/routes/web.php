@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PHPGeneratorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/php_generator', [PHPGeneratorController::class, 'index'])->name('php_generator.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

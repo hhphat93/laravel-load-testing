@@ -69,4 +69,4 @@ RUN mkdir -p /run/php && \
 # Configure Services and Port
 CMD /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 
-EXPOSE 9000 9001 9002 444
+EXPOSE 9000 9001 9002 443

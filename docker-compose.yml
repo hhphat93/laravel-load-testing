@@ -27,7 +27,6 @@ services:
       - 6001:6001
     volumes:
       - ./html:/var/www/html
-      #- ./server_ubuntu1/html:/var/www/html
       - ./server_ubuntu1/log:/var/log/nginx
       - ./server_ubuntu1/php:/etc/php/
       - ./server_ubuntu1/nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -45,7 +44,6 @@ services:
       - 9002:80
     volumes:
       - ./html:/var/www/html
-      #- ./server_ubuntu2/html:/var/www/html
       - ./server_ubuntu2/log:/var/log/nginx
       - ./server_ubuntu2/php:/etc/php/
       - ./server_ubuntu2/nginx/nginx.conf:/etc/nginx/nginx.conf
