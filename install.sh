@@ -34,3 +34,5 @@ start_slave_cmd+='"'
 docker exec mysql_slave sh -c "$start_slave_cmd"
 
 docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root -e 'SHOW SLAVE STATUS \G'"
+
+

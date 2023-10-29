@@ -67,6 +67,7 @@ services:
       - ./db_master/conf:/etc/mysql/conf.d
       - ./db_master/log/mysql:/var/log/mysql
       - ./db_master/data:/var/lib/mysql
+      - ./db_sample/test_db-master:/opt/test_db-master
     networks:
       - webserver_network
 

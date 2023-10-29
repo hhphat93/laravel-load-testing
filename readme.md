@@ -27,3 +27,6 @@ chat realtime: https://viblo.asia/p/viet-ung-dung-chat-realtime-voi-laravel-vuej
     npx mix watch
     laravel-echo-server start
     php artisan queue:work
+
+#import database employees mysql_master
+mysql -uroot -p111 < /opt/test_db-master/employees.sql
