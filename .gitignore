@@ -55,6 +55,9 @@ db_master/log
 db_slave/data
 db_slave/log
 
+db_slave_2/data
+db_slave_2/log
+
 # ignore redis
 redis/data
 
