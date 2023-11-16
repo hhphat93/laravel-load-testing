@@ -1,9 +1,13 @@
 #!/bin/bash
 
 docker-compose down -v
-rm -rf ./db_master/data/*
-rm -rf ./db_slave/data/*
 docker-compose up -d
+
+echo "Set full permission"
+chmod -R 777 .
+
+#neu ket o day thi set quyen 777 folder, rui 644 cho db_master/conf/mysql_master.cnf, db_slave/conf/mysql_slave.cnf
+chmod 644 db_master/conf/mysql_master.cnf db_slave/conf/mysql_slave.cnf db_slave_2/conf/mysql_slave.cnf
 
 until docker exec mysql_master sh -c 'export MYSQL_PWD=111; mysql -u root -e ";"'
 do
@@ -15,7 +19,6 @@ done
 priv_stmt='CREATE USER "mydb_slave_user"@"%" IDENTIFIED BY "mydb_slave_pwd"; GRANT REPLICATION SLAVE ON *.* TO "mydb_slave_user"@"%"; FLUSH PRIVILEGES;'
 docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root -e '$priv_stmt'"
 
-#neu ket o day thi set quyen 777 folder, rui 644 cho db_master/conf/mysql_master.cnf, db_slave/conf/mysql_slave.cnf
 
 until docker-compose exec mysql_slave sh -c 'export MYSQL_PWD=111; mysql -u root -e ";"'
 do
@@ -27,12 +30,19 @@ MS_STATUS=`docker exec mysql_master sh -c 'export MYSQL_PWD=111; mysql -u root -
 CURRENT_LOG=`echo $MS_STATUS | awk '{print $6}'`
 CURRENT_POS=`echo $MS_STATUS | awk '{print $7}'`
 
+# slave
 start_slave_stmt="CHANGE MASTER TO MASTER_HOST='mysql_master',MASTER_USER='mydb_slave_user',MASTER_PASSWORD='mydb_slave_pwd',MASTER_LOG_FILE='$CURRENT_LOG',MASTER_LOG_POS=$CURRENT_POS; START SLAVE;"
 start_slave_cmd='export MYSQL_PWD=111; mysql -u root -e "'
 start_slave_cmd+="$start_slave_stmt"
 start_slave_cmd+='"'
-docker exec mysql_slave sh -c "$start_slave_cmd"
 
+# mysql slave 1
+docker exec mysql_slave sh -c "$start_slave_cmd"
 docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root -e 'SHOW SLAVE STATUS \G'"
+
+# mysql slave 2
+docker exec mysql_slave_2 sh -c "$start_slave_cmd"
+docker exec mysql_slave_2 sh -c "export MYSQL_PWD=111; mysql -u root -e 'SHOW SLAVE STATUS \G'"
+
 
 
