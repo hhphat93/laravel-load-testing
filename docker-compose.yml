@@ -55,48 +55,90 @@ services:
 
   # database master
   mysql_master:
-    image: mysql:5.7.42
+    image: mysql:5.7.44
     env_file:
       - ./db_master/mysql_master.env
     container_name: "mysql_master"
     command: --default-authentication-plugin=mysql_native_password
     restart: "no"
     ports:
-      - 3307:3306
+      - 3333:3306
     volumes:
       - ./db_master/conf:/etc/mysql/conf.d
-      - ./db_master/log/mysql:/var/log/mysql
       - ./db_master/data:/var/lib/mysql
+      - ./db_master/log/mysql:/var/log/mysql
       - ./db_sample/test_db-master:/opt/test_db-master
     networks:
       - webserver_network
 
   # database slave
   mysql_slave:
-    image: mysql:5.7.42
+    image: mysql:5.7.44
     env_file:
       - ./db_slave/mysql_slave.env
     container_name: "mysql_slave"
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - 3308:3306
+      - 3334:3306
     depends_on:
       - mysql_master
     volumes:
       - ./db_slave/conf:/etc/mysql/conf.d
-      - ./db_slave/log/mysql:/var/log/mysql
       - ./db_slave/data:/var/lib/mysql
+      - ./db_slave/log/mysql:/var/log/mysql
+    networks:
+      - webserver_network
+
+  # database slave 2
+  mysql_slave_2:
+    image: mysql:5.7.44
+    env_file:
+      - ./db_slave_2/mysql_slave.env
+    container_name: "mysql_slave_2"
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3335:3306
+    depends_on:
+      - mysql_master
+    volumes:
+      - ./db_slave_2/conf:/etc/mysql/conf.d
+      - ./db_slave_2/data:/var/lib/mysql
+      - ./db_slave_2/log/mysql:/var/log/mysql
     networks:
       - webserver_network
 
   redis:
-    image: redis
+    image: redis:7.2.3
     container_name: "server_redis"
     ports:
       - 6379:6379
-    command: redis-server --save 60 1 --loglevel warning
+    command: [
+        "redis-server", 
+        "--appendonly", 
+        "no", 
+        "--maxmemory", 
+        "500mb", 
+        "--maxmemory-policy", 
+        "allkeys-lru",
+        "--save",
+        "60",
+        "1000",
+        "--loglevel",
+        "warning",
+      ]
     volumes: 
       - ./redis/data:/data
+    networks:
+      - webserver_network
+
+  mongo:
+    image: mongo
+    container_name: "mongo"
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     networks:
       - webserver_network
 
