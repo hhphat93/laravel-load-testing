@@ -1,13 +1,21 @@
 #!/bin/bash
 
 docker-compose down -v
+
+# remove old data volume
+sudo rm -rf ./db_master/data/*
+sudo rm -rf ./db_slave/data/*
+sudo rm -rf ./db_slave_2/data/*
+
 docker-compose up -d
 
 echo "Set full permission"
-chmod -R 777 .
+sudo chmod -R 777 .
 
-#neu ket o day thi set quyen 777 folder, rui 644 cho db_master/conf/mysql_master.cnf, db_slave/conf/mysql_slave.cnf
-chmod 644 db_master/conf/mysql_master.cnf db_slave/conf/mysql_slave.cnf db_slave_2/conf/mysql_slave.cnf
+# set permission my.cnf for init mysql
+sudo chmod 644 ./db_master/conf/mysql_master.cnf 
+sudo chmod 644 ./db_slave/conf/mysql_slave.cnf 
+sudo chmod 644 ./db_slave_2/conf/mysql_slave.cnf 
 
 until docker exec mysql_master sh -c 'export MYSQL_PWD=111; mysql -u root -e ";"'
 do

@@ -106,7 +106,8 @@ services:
       - ./db_slave_2/log/mysql:/var/log/mysql
     networks:
       - webserver_network
-
+  
+  # redis
   redis:
     image: redis:7.2.3
     container_name: "server_redis"
@@ -130,15 +131,26 @@ services:
       - ./redis/data:/data
     networks:
       - webserver_network
-
+      
+  # mongo
   mongo:
     image: mongo
     container_name: "mongo"
-    ports:
-      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - webserver_network
+      
+  mongo-express:
+    image: mongo-express
+    container_name: "mongo-express"
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
     networks:
       - webserver_network
 
