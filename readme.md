@@ -30,3 +30,22 @@ chat realtime: https://viblo.asia/p/viet-ung-dung-chat-realtime-voi-laravel-vuej
 
 #import database employees mysql_master
 mysql -uroot -p111 < /opt/test_db-master/employees.sql
+
+docker exec -it mongo bash
+mongosh -u root -p example --authenticationDatabase admin
+
+db.test.insertOne(
+  {
+    title: "The Favourite",
+    genres: [ "Drama", "History" ],
+    runtime: 121,
+    rated: "R",
+    year: 2018,
+    directors: [ "Yorgos Lanthimos" ],
+    cast: [ "Olivia Colman", "Emma Stone", "Rachel Weisz" ],
+    type: "movie"
+  }
+)
+
+http://localhost:8081/
+admin:pass

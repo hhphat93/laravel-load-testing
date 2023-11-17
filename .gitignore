@@ -61,3 +61,7 @@ db_slave_2/log
 # ignore redis
 redis/data
 
+# ignore mongo
+mongo/data
+mongo/log
+

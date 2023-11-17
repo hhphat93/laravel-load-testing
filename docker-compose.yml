@@ -134,14 +134,21 @@ services:
       
   # mongo
   mongo:
-    image: mongo
+    image: mongo:7.0.3
     container_name: "mongo"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes: 
+      - ./mongo/data:/data/db
+      - ./mongo/log:/var/log/mongodb
     networks:
       - webserver_network
       
+  # http://localhost:8081/
+  # admin:pass
   mongo-express:
     image: mongo-express
     container_name: "mongo-express"

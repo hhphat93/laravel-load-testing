@@ -6,6 +6,7 @@ docker-compose down -v
 sudo rm -rf ./db_master/data/*
 sudo rm -rf ./db_slave/data/*
 sudo rm -rf ./db_slave_2/data/*
+sudo rm -rf ./mongo/data/*
 
 docker-compose up -d
 
