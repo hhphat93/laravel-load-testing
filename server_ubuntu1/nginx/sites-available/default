@@ -13,7 +13,7 @@ server {
     #proxy_read_timeout 2;
 
     location / {
-        try_files $uri $uri/ /index.php?q=$request_uri;
+        try_files $uri $uri/ /index.php$is_args$query_string;
     }
 
     location /timeout {
