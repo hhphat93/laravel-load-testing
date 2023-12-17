@@ -1,6 +1,9 @@
+# camapboingua => node
+chown -R camapboingua:camapboingua .
+
 docker exec -it chat-mongo bash
 
-mongosh --port 27017 -u root -proot
+mongosh --port 27017 -u root -p root
 
 use chat
 
