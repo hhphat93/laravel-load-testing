@@ -1,0 +1,23 @@
+{
+    "name": "chat_service",
+    "version": "1.0.0",
+    "description": "chat service",
+    "author": "camapboingua",
+    "license": "MIT",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app.js"
+    },
+    "keywords": [
+        "nodejs",
+        "express"
+    ],
+    "dependencies": {
+        "express": "^4.16.4",
+        "mongoose": "^8.0.3"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.2"
+    }
+}
