@@ -2,18 +2,17 @@
 
 docker-compose down -v
 
-# remove old data volume
+# # remove old data volume
 sudo rm -rf ./db_master/data/*
 sudo rm -rf ./db_slave/data/*
 sudo rm -rf ./db_slave_2/data/*
-sudo rm -rf ./mongo/data/*
 
 docker-compose up -d
 
 echo "Set full permission"
 sudo chmod -R 777 .
 
-# set permission my.cnf for init mysql
+# # set permission my.cnf for init mysql
 sudo chmod 644 ./db_master/conf/mysql_master.cnf 
 sudo chmod 644 ./db_slave/conf/mysql_slave.cnf 
 sudo chmod 644 ./db_slave_2/conf/mysql_slave.cnf 

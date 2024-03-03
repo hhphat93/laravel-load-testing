@@ -62,7 +62,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: "no"
     ports:
-      - 3333:3306
+      - 33306:3306
     volumes:
       - ./db_master/conf:/etc/mysql/conf.d
       - ./db_master/data:/var/lib/mysql
@@ -79,7 +79,7 @@ services:
     container_name: "mysql_slave"
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - 3334:3306
+      - 33307:3306
     depends_on:
       - mysql_master
     volumes:
@@ -97,7 +97,7 @@ services:
     container_name: "mysql_slave_2"
     command: --default-authentication-plugin=mysql_native_password
     ports:
-      - 3335:3306
+      - 33308:3306
     depends_on:
       - mysql_master
     volumes:
@@ -132,35 +132,6 @@ services:
     networks:
       - webserver_network
       
-  # mongo
-  mongo:
-    image: mongo:7.0.3
-    container_name: "mongo"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-    ports:
-      - "27017:27017"
-    volumes: 
-      - ./mongo/data:/data/db
-      - ./mongo/log:/var/log/mongodb
-    networks:
-      - webserver_network
-      
-  # http://localhost:8081/
-  # admin:pass
-  mongo-express:
-    image: mongo-express
-    container_name: "mongo-express"
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
-    networks:
-      - webserver_network
-
 networks:
   webserver_network:
     driver: bridge
