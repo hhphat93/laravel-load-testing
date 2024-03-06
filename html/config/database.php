@@ -131,6 +131,34 @@ return [
             ]) : [],
         ],
 
+        'test_read_write' => [
+            'read' => [
+                'host' => 'mysql_slave',
+                'port' => '3306',
+                'database' => 'test_read_write',
+                'username' => 'root',
+                'password' => '111',
+            ],
+            'write' => [
+                'host' => 'mysql_master',
+                'port' => '3306',
+                'database' => 'test_read_write',
+                'username' => 'root',
+                'password' => '111',
+            ],
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'unix_socket' => env('DB_WRITE_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
     ],
 
     /*
