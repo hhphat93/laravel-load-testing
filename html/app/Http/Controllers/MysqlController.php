@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -15,6 +17,16 @@ class MysqlController extends Controller
      */
     public function index()
     {
+        User::insert(['id' => fake()->randomNumber()]);
+        Post::count();
+        // DB::table('users')->count();
+        // DB::table('users')->insert([
+        //     'id' => fake()->randomNumber(),
+        // ]);
+
+        DB::connection('employees')->table('employees')->count();
+
+
         // Select
         // $users = DB::connection('test_read_write')->table('users')->get(); //run on slave
         // dd($users);
