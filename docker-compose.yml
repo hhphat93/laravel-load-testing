@@ -16,7 +16,7 @@ services:
       #php.ini
     tty: true
     networks:
-      - webserver_network
+      - docker_server_network
 
   # server ubuntu 1
   ubuntu1:
@@ -34,7 +34,7 @@ services:
     working_dir: /var/www/html
     tty: true
     networks:
-      - webserver_network
+      - docker_server_network
 
   # server ubuntu 2
   ubuntu2:
@@ -51,7 +51,7 @@ services:
     working_dir: /var/www/html
     tty: true
     networks:
-      - webserver_network
+      - docker_server_network
 
   # database master
   mysql_master:
@@ -69,7 +69,7 @@ services:
       - ./db_master/log/mysql:/var/log/mysql
       - ./db_sample/test_db-master:/opt/test_db-master
     networks:
-      - webserver_network
+      - docker_server_network
 
   # database slave
   mysql_slave:
@@ -87,7 +87,7 @@ services:
       - ./db_slave/data:/var/lib/mysql
       - ./db_slave/log/mysql:/var/log/mysql
     networks:
-      - webserver_network
+      - docker_server_network
 
   # database slave 2
   mysql_slave_2:
@@ -105,7 +105,7 @@ services:
       - ./db_slave_2/data:/var/lib/mysql
       - ./db_slave_2/log/mysql:/var/log/mysql
     networks:
-      - webserver_network
+      - docker_server_network
   
   # redis
   redis:
@@ -130,8 +130,8 @@ services:
     volumes: 
       - ./redis/data:/data
     networks:
-      - webserver_network
+      - docker_server_network
       
 networks:
-  webserver_network:
+  docker_server_network:
     driver: bridge
