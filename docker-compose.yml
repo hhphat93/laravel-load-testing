@@ -13,10 +13,16 @@ services:
       - ./server_loadbalance/nginx/sites-available:/etc/nginx/sites-available
       - ./server_loadbalance/log:/var/log/nginx
       - ./server_loadbalance/ssl/:/etc/nginx/ssl
+    # user: webuser
       #php.ini
     tty: true
     networks:
       - docker_server_network
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1.0'
+    #       memory: 1GB
 
   # server ubuntu 1
   ubuntu1:
@@ -32,9 +38,15 @@ services:
       - ./server_ubuntu1/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_ubuntu1/nginx/sites-available:/etc/nginx/sites-available
     working_dir: /var/www/html
+    # user: webuser
     tty: true
     networks:
       - docker_server_network
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1.0'
+    #       memory: 1GB
 
   # server ubuntu 2
   ubuntu2:
@@ -49,9 +61,15 @@ services:
       - ./server_ubuntu2/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_ubuntu2/nginx/sites-available:/etc/nginx/sites-available
     working_dir: /var/www/html
+    # user: webuser
     tty: true
     networks:
       - docker_server_network
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1.0'
+    #       memory: 1GB
 
   # database master
   mysql_master:
@@ -70,6 +88,11 @@ services:
       - ./db_sample/test_db-master:/opt/test_db-master
     networks:
       - docker_server_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1GB
 
   # database slave
   mysql_slave:
@@ -88,6 +111,11 @@ services:
       - ./db_slave/log/mysql:/var/log/mysql
     networks:
       - docker_server_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1GB
 
   # database slave 2
   mysql_slave_2:
@@ -106,6 +134,11 @@ services:
       - ./db_slave_2/log/mysql:/var/log/mysql
     networks:
       - docker_server_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1GB
   
   # redis
   redis:
@@ -131,6 +164,11 @@ services:
       - ./redis/data:/data
     networks:
       - docker_server_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1GB
       
 networks:
   docker_server_network:

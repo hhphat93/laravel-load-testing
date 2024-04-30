@@ -3,13 +3,17 @@ FROM ubuntu:20.04
  
 # Update Software repository, install package
 RUN apt-get update && apt-get install -y \
+    nginx \
     sudo \
     curl \
+    htop \
+    nano \
     rsync \
+    zip \
+    unzip \
     iputils-ping \
     openssh-server \
     openssh-client \
-    nginx \
     supervisor
 
 # Install php-fpm8.1 from ubuntu repository, remove package in linux after apt-get update
@@ -21,8 +25,8 @@ RUN apt-get install -y php8.1-fpm \
     php8.1-xml \
     php8.1-xmlrpc \
     php8.1-curl \
-    php8.1-gd \
-    php8.1-imagick \
+    # php8.1-gd \
+    # php8.1-imagick \
     php8.1-cli \
     php8.1-dev \
     php8.1-imap \
