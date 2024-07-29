@@ -23,6 +23,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/load-test', function () {
+    return 1;
+});
+
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/php_generator', [PHPGeneratorController::class, 'index'])->name('php_generator.index');
 Route::resource('memory', MemoryController::class);
