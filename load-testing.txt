@@ -1,0 +1,3 @@
+https://k6.io/docs/get-started/running-k6/
+
+docker run --rm -i --network docker_server_docker_server_network grafana/k6 run - <script.js
