@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PHPGeneratorController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/php_generator', [PHPGeneratorController::class, 'index'])->name('php_generator.index');
 Route::resource('memory', MemoryController::class);
 Route::resource('mysql', MysqlController::class);
+Route::get('/ajax', [AjaxController::class, 'index']);
+Route::get('/ajax/test-content-type', [AjaxController::class, 'testContentType']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -68,3 +71,4 @@ Route::post('/messages', function() {
 })->middleware('auth');
 
 require __DIR__.'/auth.php';
+

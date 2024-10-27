@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +16,24 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // $schedule->command('inspire')->everyMinute();
+
+        $schedule->command('SendEmails user1')->everyMinute()->runInBackground();
+        $schedule->command('SendEmails user2')->everyMinute()->runInBackground();
+        $schedule->command('SendEmails user3')->everyMinute()->runInBackground();
+
+        // $schedule->call(function () {
+        //     Log::info('command 1');
+        //     sleep(65);
+        // })->everyMinute();
+
+        // $schedule->call(function () {
+        //     Log::info('command 2');
+        // })->at('22:28');
+
+        // $schedule->call(function () {
+        //     Log::info('command 3');
+        // })->everyMinute();
     }
 
     /**

@@ -12,7 +12,7 @@ class SendEmails extends Command
      *
      * @var string
      */
-    protected $signature = 'SendEmails';
+    protected $signature = 'SendEmails {user}';
 
     /**
      * The console command description.
@@ -28,16 +28,9 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        // sleep(5);
-        // Log::info('send mail in background');
-        try {
-            while(true){
-                //to infinity and beyond...
-                $this->info('aaa');
-            }
-        } catch (\Throwable $th) {
-            dd($th->getMessage());
-        }
+        sleep(62);
 
+        $this->info('user' . $this->argument('user'));
+        Log::info('user ', [$this->argument('user')]);
     }
 }

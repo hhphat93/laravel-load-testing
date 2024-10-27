@@ -21,8 +21,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1GB
+          cpus: '2.0'
+          memory: 3GB
 
   # server ubuntu 1
   ubuntu1:
@@ -45,8 +45,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1GB
+          cpus: '2.0'
+          memory: 3GB
 
   # server ubuntu 2
   ubuntu2:
@@ -68,8 +68,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1GB
+          cpus: '2.0'
+          memory: 3GB
 
   # database master
   mysql_master:
@@ -91,8 +91,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1GB
+          cpus: '2.0'
+          memory: 3GB
 
   # database slave
   mysql_slave:
@@ -114,8 +114,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1GB
+          cpus: '2.0'
+          memory: 3GB
 
   # database slave 2
   mysql_slave_2:
@@ -137,8 +137,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1GB
+          cpus: '2.0'
+          memory: 3GB
   
   # redis
   redis:
@@ -167,8 +167,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.0'
-          memory: 1GB
+          cpus: '2.0'
+          memory: 3GB
       
 networks:
   docker_server_network:
