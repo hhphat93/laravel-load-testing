@@ -21,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    for ($i=0; $i < 200; $i++) {
+        \Log::warning('heheh');
+
+    }
+
     return view('welcome');
 });
 

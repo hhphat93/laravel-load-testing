@@ -18,21 +18,24 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->everyMinute();
 
-        $schedule->command('SendEmails user1')->everyMinute()->runInBackground();
-        $schedule->command('SendEmails user2')->everyMinute()->runInBackground();
-        $schedule->command('SendEmails user3')->everyMinute()->runInBackground();
+        // $schedule->command('SendEmails user1')->everyMinute()->runInBackground();
+        // $schedule->command('SendEmails user2')->everyMinute()->runInBackground();
+        // $schedule->command('SendEmails user3')->everyMinute()->runInBackground();
 
-        // $schedule->call(function () {
-        //     Log::info('command 1');
-        //     sleep(65);
-        // })->everyMinute();
+        $uuid = uniqid();
 
-        // $schedule->call(function () {
-        //     Log::info('command 2');
-        // })->at('22:28');
+        $schedule->call(function () use ($uuid) {
+            Log::info('command 1 ' . $uuid);
+            sleep(62);
+        })->everyThreeMinutes();
 
-        // $schedule->call(function () {
-        //     Log::info('command 3');
+        $schedule->call(function () use ($uuid) {
+            Log::info('command 2 ' . $uuid);
+        })->at('23:02');
+
+        // $schedule->call(function () use ($uuid) {
+        //     Log::info('command 3 ' . $uuid);
+        //     sleep(62);
         // })->everyMinute();
     }
 
