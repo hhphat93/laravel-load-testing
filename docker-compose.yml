@@ -27,6 +27,8 @@ services:
   # server ubuntu 1
   ubuntu1:
     image: server_ubuntu
+    depends_on: 
+      - loadbalance
     container_name: u1
     ports:
       - 9001:80
@@ -51,6 +53,8 @@ services:
   # server ubuntu 2
   ubuntu2:
     image: server_ubuntu
+    depends_on: 
+      - loadbalance
     container_name: u2
     ports:
       - 9002:80
@@ -83,9 +87,10 @@ services:
       - 33306:3306
     volumes:
       - ./db_master/conf:/etc/mysql/conf.d
-      - ./db_master/data:/var/lib/mysql
+      - mysql_master_data:/var/lib/mysql
+      # - ./db_master/data:/var/lib/mysql
       - ./db_master/log/mysql:/var/log/mysql
-      - ./db_sample/test_db-master:/opt/test_db-master
+      #- ./db_sample/test_db-master:/opt/test_db-master
     networks:
       - docker_server_network
     deploy:
@@ -107,7 +112,8 @@ services:
       - mysql_master
     volumes:
       - ./db_slave/conf:/etc/mysql/conf.d
-      - ./db_slave/data:/var/lib/mysql
+      # - ./db_slave/data:/var/lib/mysql
+      - mysql_slave_data:/var/lib/mysql
       - ./db_slave/log/mysql:/var/log/mysql
     networks:
       - docker_server_network
@@ -130,7 +136,8 @@ services:
       - mysql_master
     volumes:
       - ./db_slave_2/conf:/etc/mysql/conf.d
-      - ./db_slave_2/data:/var/lib/mysql
+      # - ./db_slave_2/data:/var/lib/mysql
+      - mysql_slave_2_data:/var/lib/mysql
       - ./db_slave_2/log/mysql:/var/log/mysql
     networks:
       - docker_server_network
@@ -161,7 +168,8 @@ services:
         "warning",
       ]
     volumes: 
-      - ./redis/data:/data
+      # - ./redis/data:/data
+      - redis_data:/data
     networks:
       - docker_server_network
     deploy:
@@ -169,7 +177,18 @@ services:
         limits:
           cpus: '2.0'
           memory: 3GB
-      
+
+volumes:
+  mysql_master_data:
+    driver: local
+  mysql_slave_data:
+    driver: local
+  mysql_slave_2_data:
+    driver: local
+  redis_data:
+    driver: local
+
 networks:
   docker_server_network:
     driver: bridge
+
