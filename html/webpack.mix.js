@@ -4,6 +4,7 @@ require('mix-tailwindcss');
 
 
 mix.js('resources/js/app.js', 'js')
+    .js('resources/js/ssr.js', 'js')
     .css('resources/css/app.css', 'css')
     .setPublicPath('public')
     .vue();

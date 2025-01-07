@@ -6,7 +6,9 @@ use App\Http\Controllers\PHPGeneratorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\MysqlController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,13 +23,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    for ($i=0; $i < 200; $i++) {
-        \Log::warning('heheh');
-
-    }
-
     return view('welcome');
 });
+
+
+Route::get('/users/{id}', [UserController::class, 'show']);
+
 
 Route::get('/load-test', function () {
     return 1;
