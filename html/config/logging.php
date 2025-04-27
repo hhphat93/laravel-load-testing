@@ -119,10 +119,15 @@ return [
         ],
 
         'debug_query' => [
-            'driver' => 'daily',
+            'driver' => 'single',
             'path' => storage_path('logs/debug_query.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 1,
+        ],
+
+        'schedule' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/schedule.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
         ],
     ],
 

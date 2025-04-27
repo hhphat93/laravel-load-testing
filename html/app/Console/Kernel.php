@@ -25,18 +25,19 @@ class Kernel extends ConsoleKernel
         $uuid = uniqid();
 
         $schedule->call(function () use ($uuid) {
-            Log::info('command 1 ' . $uuid);
-            sleep(62);
-        })->everyThreeMinutes();
+            Log::channel('schedule')->info('command 1 ' . $uuid);
+        })
+        ->everyMinute();
 
         $schedule->call(function () use ($uuid) {
-            Log::info('command 2 ' . $uuid);
-        })->at('23:02');
+            Log::channel('schedule')->info('command 2 ' . $uuid);
+        })
+        ->everyMinute();
 
         // $schedule->call(function () use ($uuid) {
-        //     Log::info('command 3 ' . $uuid);
-        //     sleep(62);
-        // })->everyMinute();
+        //     Log::channel('schedule')->info('command 3 ' . $uuid);
+        // })->dailyAt('18:48');
+
     }
 
     /**

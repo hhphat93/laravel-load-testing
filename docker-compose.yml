@@ -13,8 +13,6 @@ services:
       - ./server_loadbalance/nginx/sites-available:/etc/nginx/sites-available
       - ./server_loadbalance/log:/var/log/nginx
       - ./server_loadbalance/ssl/:/etc/nginx/ssl
-    # user: webuser
-      #php.ini
     tty: true
     networks:
       - docker_server_network
@@ -40,7 +38,6 @@ services:
       - ./server_ubuntu1/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_ubuntu1/nginx/sites-available:/etc/nginx/sites-available
     working_dir: /var/www/html
-    # user: webuser
     tty: true
     networks:
       - docker_server_network
@@ -65,7 +62,6 @@ services:
       - ./server_ubuntu2/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_ubuntu2/nginx/sites-available:/etc/nginx/sites-available
     working_dir: /var/www/html
-    # user: webuser
     tty: true
     networks:
       - docker_server_network
@@ -87,9 +83,8 @@ services:
       - 33306:3306
     volumes:
       - ./db_master/conf:/etc/mysql/conf.d
-      - mysql_master_data:/var/lib/mysql
-      # - ./db_master/data:/var/lib/mysql
       - ./db_master/log/mysql:/var/log/mysql
+      - mysql_master_data:/var/lib/mysql
       #- ./db_sample/test_db-master:/opt/test_db-master
     networks:
       - docker_server_network
@@ -112,9 +107,8 @@ services:
       - mysql_master
     volumes:
       - ./db_slave/conf:/etc/mysql/conf.d
-      # - ./db_slave/data:/var/lib/mysql
-      - mysql_slave_data:/var/lib/mysql
       - ./db_slave/log/mysql:/var/log/mysql
+      - mysql_slave_data:/var/lib/mysql
     networks:
       - docker_server_network
     deploy:
@@ -136,9 +130,8 @@ services:
       - mysql_master
     volumes:
       - ./db_slave_2/conf:/etc/mysql/conf.d
-      # - ./db_slave_2/data:/var/lib/mysql
-      - mysql_slave_2_data:/var/lib/mysql
       - ./db_slave_2/log/mysql:/var/log/mysql
+      - mysql_slave_2_data:/var/lib/mysql
     networks:
       - docker_server_network
     deploy:
@@ -168,7 +161,6 @@ services:
         "warning",
       ]
     volumes: 
-      # - ./redis/data:/data
       - redis_data:/data
     networks:
       - docker_server_network
