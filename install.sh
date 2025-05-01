@@ -7,10 +7,11 @@ sudo rm -rf ./db_master/data/*
 sudo rm -rf ./db_slave/data/*
 sudo rm -rf ./db_slave_2/data/*
 
-docker-compose up -d
+sudo rm -rf ./db_master/log/*
+sudo rm -rf ./db_slave/log/*
+sudo rm -rf ./db_slave_2/log/*
 
-echo "Set full permission"
-sudo chmod -R 777 .
+docker-compose up -d
 
 # # set permission my.cnf for init mysql
 sudo chmod 644 ./db_master/conf/mysql_master.cnf 
@@ -34,6 +35,12 @@ do
     sleep 4
 done
 
+until docker-compose exec mysql_slave_2 sh -c 'export MYSQL_PWD=111; mysql -u root -e ";"'
+do
+    echo "Waiting for mysql_slave_2 database connection..."
+    sleep 4
+done
+
 MS_STATUS=`docker exec mysql_master sh -c 'export MYSQL_PWD=111; mysql -u root -e "SHOW MASTER STATUS"'`
 CURRENT_LOG=`echo $MS_STATUS | awk '{print $6}'`
 CURRENT_POS=`echo $MS_STATUS | awk '{print $7}'`
@@ -52,5 +59,19 @@ docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root -e 'SHOW SLAV
 docker exec mysql_slave_2 sh -c "$start_slave_cmd"
 docker exec mysql_slave_2 sh -c "export MYSQL_PWD=111; mysql -u root -e 'SHOW SLAVE STATUS \G'"
 
+echo "Set permission folder log"
+sudo chmod -R 755 ./db_master/log/mysql.log
+sudo chmod -R 755 ./db_master/log/error.log
+sudo chmod -R 755 ./db_master/log/slow.log
 
+sudo chmod -R 755 ./db_slave/log/mysql.log
+sudo chmod -R 755 ./db_slave/log/error.log
+sudo chmod -R 755 ./db_slave/log/slow.log
+
+sudo chmod -R 755 ./db_slave_2/log/mysql.log
+sudo chmod -R 755 ./db_slave_2/log/error.log
+sudo chmod -R 755 ./db_slave_2/log/slow.log
+
+sudo chmod -R 755 ./server_ubuntu1/log/
+sudo chmod -R 755 ./server_ubuntu2/log/
 

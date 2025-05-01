@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it u2 bash
+docker exec -it u1 bash

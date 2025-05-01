@@ -82,7 +82,7 @@ RUN chmod 0644 /etc/cron.d/laravel-schedule
 RUN crontab /etc/cron.d/laravel-schedule
 
 # Configure Services and Port
-COPY supervisord.conf ${SUPERVISOR_CONF}
+COPY ./supervisord/supervisord.conf ${SUPERVISOR_CONF}
 CMD /usr/bin/supervisord -n -c ${SUPERVISOR_CONF}
 
 EXPOSE 9000 9001 9002 443
