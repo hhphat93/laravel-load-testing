@@ -12,3 +12,11 @@ docker exec -it mysql_slave bash
 docker exec -it mysql_slave_2 bash
 
 docker exec -it server_redis bash
+
+# Access web
+lb: https://localhost:444
+lb: http://localhost:9000
+
+u1: http://localhost:9001
+u2: http://localhost:9002
+

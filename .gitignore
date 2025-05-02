@@ -58,6 +58,9 @@ db_slave/log
 db_slave_2/data
 db_slave_2/log
 
+server_ubuntu1/log
+server_ubuntu2/log
+
 # ignore redis
 redis/data
 

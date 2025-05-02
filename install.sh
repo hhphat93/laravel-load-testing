@@ -60,18 +60,18 @@ docker exec mysql_slave_2 sh -c "$start_slave_cmd"
 docker exec mysql_slave_2 sh -c "export MYSQL_PWD=111; mysql -u root -e 'SHOW SLAVE STATUS \G'"
 
 echo "Set permission folder log"
-sudo chmod -R 755 ./db_master/log/mysql.log
-sudo chmod -R 755 ./db_master/log/error.log
-sudo chmod -R 755 ./db_master/log/slow.log
+sudo chmod -R 777 ./db_master/log/mysql.log
+sudo chmod -R 777 ./db_master/log/error.log
+sudo chmod -R 777 ./db_master/log/slow.log
 
-sudo chmod -R 755 ./db_slave/log/mysql.log
-sudo chmod -R 755 ./db_slave/log/error.log
-sudo chmod -R 755 ./db_slave/log/slow.log
+sudo chmod -R 777 ./db_slave/log/mysql.log
+sudo chmod -R 777 ./db_slave/log/error.log
+sudo chmod -R 777 ./db_slave/log/slow.log
 
-sudo chmod -R 755 ./db_slave_2/log/mysql.log
-sudo chmod -R 755 ./db_slave_2/log/error.log
-sudo chmod -R 755 ./db_slave_2/log/slow.log
+sudo chmod -R 777 ./db_slave_2/log/mysql.log
+sudo chmod -R 777 ./db_slave_2/log/error.log
+sudo chmod -R 777 ./db_slave_2/log/slow.log
 
-sudo chmod -R 755 ./server_ubuntu1/log/
-sudo chmod -R 755 ./server_ubuntu2/log/
+sudo chmod -R 777 ./server_ubuntu1/log/
+sudo chmod -R 777 ./server_ubuntu2/log/
 
