@@ -28,15 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        URL::forceRootUrl('http://localhost:9001');
+        URL::forceRootUrl('http://localhost:9000');
 
         Paginator::useBootstrap();
-
-        if ($this->app->environment('local')) {
-            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
-            $this->app->register(TelescopeServiceProvider::class);
-            $this->writeLogDebugQuery();
-        }
     }
 
     /**

@@ -72,6 +72,7 @@ sudo chmod -R 777 ./db_slave_2/log/mysql.log
 sudo chmod -R 777 ./db_slave_2/log/error.log
 sudo chmod -R 777 ./db_slave_2/log/slow.log
 
+sudo chmod -R 777 ./server_loadbalance/log/
 sudo chmod -R 777 ./server_ubuntu1/log/
 sudo chmod -R 777 ./server_ubuntu2/log/
 

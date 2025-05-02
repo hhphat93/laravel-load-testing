@@ -10,6 +10,7 @@ services:
       - 9000:80
       - 444:443
     volumes:
+      - ./server_loadbalance/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_loadbalance/nginx/sites-available:/etc/nginx/sites-available
       - ./server_loadbalance/log:/var/log/nginx
       - ./server_loadbalance/ssl/:/etc/nginx/ssl

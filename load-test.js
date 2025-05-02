@@ -8,7 +8,7 @@ export const options = {
   // duration: '30s',
 
   stages: [
-    { duration: '30s', target: 2000 },
+    { duration: '30s', target: 300 },
     // { duration: '1m30s', target: 500 },
     // { duration: '20s', target: 0 },
   ],
@@ -60,6 +60,6 @@ export const options = {
 // about authoring k6 scripts.
 //
 export default function() {
-  http.get('http://u1/load-test');
+  http.get('http://lb/load-test');
   sleep(1);
 }

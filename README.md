@@ -20,3 +20,7 @@ lb: http://localhost:9000
 u1: http://localhost:9001
 u2: http://localhost:9002
 
+# Load testing
+https://k6.io/docs/get-started/running-k6/
+
+docker run --rm -i --network docker_server_docker_server_network grafana/k6 run - <load-test.js
