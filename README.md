@@ -20,9 +20,14 @@ bash import_db_employees.sh
 ```
 
 # Access web
-load balancer: http://localhost:9000
-web server 1: http://localhost:9001
-web server 2: http://localhost:9002
+- Load balancer: http://localhost:9000
+- Web server 1: http://localhost:9001
+- Web server 2: http://localhost:9002
+
+# Access database
+- MySQL master: root / 111
+- MySQL slave 1: root / 111
+- MySQL slave 2: root / 111
 
 # Load testing
 #### Config CPU, RAM
