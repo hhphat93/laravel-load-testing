@@ -18,11 +18,8 @@ services:
     networks:
       - docker_server_network
       - docker_share_network
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 3GB
+    cpus: 2.0
+    mem_limit: 3g
 
   # server ubuntu 1
   ubuntu1:
@@ -45,11 +42,8 @@ services:
     networks:
       - docker_server_network
       - docker_share_network
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 3GB
+    cpus: 2.0
+    mem_limit: 3g
 
   # server ubuntu 2
   ubuntu2:
@@ -70,11 +64,8 @@ services:
     networks:
       - docker_server_network
       - docker_share_network
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 3GB
+    cpus: 2.0
+    mem_limit: 3g
 
   # database master
   mysql_master:
@@ -94,11 +85,8 @@ services:
     networks:
       - docker_server_network
       - docker_share_network
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 3GB
+    cpus: 2.0
+    mem_limit: 3g
 
   # database slave
   mysql_slave:
@@ -118,11 +106,8 @@ services:
     networks:
       - docker_server_network
       - docker_share_network
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 3GB
+    cpus: 2.0
+    mem_limit: 3g
 
   # database slave 2
   mysql_slave_2:
@@ -142,11 +127,8 @@ services:
     networks:
       - docker_server_network
       - docker_share_network
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 3GB
+    cpus: 2.0
+    mem_limit: 3g
   
   # redis
   redis:
@@ -173,11 +155,8 @@ services:
     networks:
       - docker_server_network
       - docker_share_network
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 3GB
+    cpus: 2.0
+    mem_limit: 3g
 
 volumes:
   mysql_master_data:

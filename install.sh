@@ -2,7 +2,7 @@
 
 docker-compose down -v
 
-# # remove old data volume
+# Remove old data volume
 sudo rm -rf ./db_master/data/*
 sudo rm -rf ./db_slave/data/*
 sudo rm -rf ./db_slave_2/data/*
@@ -13,7 +13,7 @@ sudo rm -rf ./db_slave_2/log/*
 
 docker-compose up -d
 
-# # set permission my.cnf for init mysql
+# Set permission my.cnf for init mysql
 sudo chmod 644 ./db_master/conf/mysql_master.cnf 
 sudo chmod 644 ./db_slave/conf/mysql_slave.cnf 
 sudo chmod 644 ./db_slave_2/conf/mysql_slave.cnf 

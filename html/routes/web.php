@@ -31,7 +31,15 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 
 
 Route::get('/load-test', function () {
-    return 1;
+    // Fake request time from 100ms -> 2000ms
+    $ms = rand(100, 2000);
+
+    usleep($ms * 1000);
+
+    return response()->json([
+        'status' => 'ok',
+        'processing_time_ms' => $ms
+    ]);
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
