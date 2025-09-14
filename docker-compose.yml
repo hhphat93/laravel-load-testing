@@ -57,6 +57,7 @@ services:
       - ./html:/var/www/html
       - ./server_ubuntu2/log/nginx:/var/log/nginx
       - ./server_ubuntu2/log/php-fpm:/var/log/php-fpm
+      - ./server_ubuntu1/php:/etc/php/
       - ./server_ubuntu2/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./server_ubuntu2/nginx/sites-available:/etc/nginx/sites-available
     working_dir: /var/www/html

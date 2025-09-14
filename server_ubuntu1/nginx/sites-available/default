@@ -20,6 +20,21 @@ server {
         proxy_pass http://u2/home;
     }
 
+    location /nginx-status {
+        stub_status on;
+        allow 127.0.0.1;
+        deny all;
+    }
+
+    location /status {
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+
+        allow 127.0.0.1;  # chỉ localhost
+        deny all;
+    }
+
     location ~ \.php$ {
         fastcgi_index   index.php;
         fastcgi_pass    unix:/var/run/php/php8.1-fpm.sock;

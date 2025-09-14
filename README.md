@@ -14,9 +14,10 @@ A load‑testing sandbox for Laravel, Nginx, and MySQL, featuring web‑server l
 bash install.sh
 ```
 
-# Import employees database if needed
+# Import employees, movie_booking database if needed
 ```
 bash import_db_employees.sh
+bash import_db_movie_booking.sh
 ```
 
 # Access web
@@ -65,5 +66,10 @@ docker restart u1 u2
 
 #### Run test
 ```
-docker run --rm -i --network docker_server_docker_server_network grafana/k6 run - <load-test.js
+# Load test api RPS
+docker run --rm -i --network docker_server_docker_server_network grafana/k6 run - <k6/load-test.js
+
+# Test movie booking race condition
+docker run --rm -i --network docker_server_docker_server_network grafana/k6 run - <k6/movie_booking/test-race-condition.js
 ```
+

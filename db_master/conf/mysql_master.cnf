@@ -5,6 +5,7 @@ log_bin = /var/log/mysql/mysql-bin.log
 binlog_format = ROW
 binlog_do_db = mydb
 binlog_do_db = employees
+binlog_do_db = movie_booking
 
 general_log_file = /var/log/mysql/mysql.log
 general_log      = 1

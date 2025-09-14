@@ -7,8 +7,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemoryController;
 use App\Http\Controllers\MysqlController;
 use App\Http\Controllers\UserController;
+use App\Models\MovieBooking\ReservationSeat;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +35,7 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 
 Route::get('/load-test', function () {
     // Fake request time from 100ms -> 2000ms
-    $ms = rand(100, 2000);
+    $ms = rand(300, 2000);
 
     usleep($ms * 1000);
 
