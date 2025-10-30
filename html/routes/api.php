@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Employee\Api\v1\EmployeeApiController;
+use App\Http\Controllers\Ecommerce\Api\v1\CheckoutApiController;
 use App\Http\Controllers\MovieBooking\Api\v1\BookingController;
 use App\Http\Controllers\MovieBooking\Api\v1\CinemaController;
 use App\Http\Controllers\MovieBooking\Api\v1\MovieController;
@@ -44,5 +45,11 @@ Route::prefix('movie-booking')->group(function () {
         Route::apiResource('bookings', BookingController::class);
         Route::apiResource('reservation-seats', ReservationSeatController::class);
         Route::apiResource('transactions', TransactionController::class);
+    });
+});
+
+Route::prefix('ecommerce')->group(function () {
+    Route::prefix('v1')->group(function () {
+        Route::apiResource('/checkout', CheckoutApiController::class);
     });
 });

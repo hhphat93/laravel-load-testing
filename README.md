@@ -71,5 +71,8 @@ docker run --rm -i --network docker_server_docker_server_network grafana/k6 run 
 
 # Test movie booking race condition
 docker run --rm -i --network docker_server_docker_server_network grafana/k6 run - <k6/movie_booking/test-race-condition.js
+
+# Test ecommerce checkout performance with lockForUpdate()
+docker run --rm -i --network docker_server_docker_server_network grafana/k6 run - <k6/ecommerce/test-checkout.js
 ```
 

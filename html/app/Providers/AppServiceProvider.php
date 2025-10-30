@@ -31,18 +31,34 @@ class AppServiceProvider extends ServiceProvider
         URL::forceRootUrl('http://localhost:9000');
 
         Paginator::useBootstrap();
+
+        $this->trackingLockForUpdateQuery();
+        $this->writeLogDebugQuery();
     }
 
-    /**
-     * writeLogDebugQuery
-     *
-     * @return void
-     */
-    private function writeLogDebugQuery() {
+    private function trackingLockForUpdateQuery()
+    {
         if (!config('app.debug_query')) {
             return;
         }
-        
+
+        DB::listen(function ($query) {
+            if (str_contains($query->sql, 'for update')) {
+                // Log or monitor lock acquisition time
+                Log::channel('debug_query')->debug('Lock wait time' . print_r([
+                    'sql' => $query->sql,
+                    'time' => $query->time
+                ], true));
+            }
+        });
+    }
+
+    private function writeLogDebugQuery()
+    {
+        if (!config('app.debug_query')) {
+            return;
+        }
+
         DB::listen(function ($query) {
             $bindings = array_map(function ($binding) {
                 if (is_string($binding)) {
@@ -52,14 +68,14 @@ class AppServiceProvider extends ServiceProvider
                     return 'NULL';
                 }
                 if (is_bool($binding)) {
-                    return $binding ? 'true' : 'false'; 
+                    return $binding ? 'true' : 'false';
                 }
-                return $binding; 
+                return $binding;
             }, $query->bindings);
-        
+
             $formattedQuery = str_replace(['%', '?'], ['%%', '%s'], $query->sql);
             $finalQuery = vsprintf($formattedQuery, $bindings);
-    
+
             Log::channel('debug_query')->debug($finalQuery . "\n" . print_r([
                 'time' => "{$query->time} ms",
                 'bindings' => $bindings
