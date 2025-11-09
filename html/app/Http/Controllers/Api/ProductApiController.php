@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\SocialNetwork\Api\v1;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CommentApiController extends Controller
+class ProductApiController  extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,6 @@ class CommentApiController extends Controller
     {
         //
     }
-
 
     /**
      * Show the form for creating a new resource.

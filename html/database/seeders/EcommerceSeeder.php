@@ -21,6 +21,7 @@ class EcommerceSeeder extends Seeder
 
         for ($i = 0; $i < 100; $i++) {
             $name = $faker->words(3, true);
+            $stock = $faker->numberBetween(0, 200);
 
             $data[] = [
                 'name'           => ucfirst($name),
@@ -30,7 +31,8 @@ class EcommerceSeeder extends Seeder
                 'discount_price' => $faker->boolean(30)
                                         ? $faker->randomFloat(2, 5000, 2000000)
                                         : null,
-                'stock'          => $faker->numberBetween(0, 200),
+                'stock'          => $stock,
+                'stock_available' => $stock,
                 'sku'            => strtoupper(Str::random(8)),
                 // 'image'          => $faker->imageUrl(600, 600, 'product', true, 'Faker'),
                 // 'gallery'        => json_encode([
@@ -46,6 +48,6 @@ class EcommerceSeeder extends Seeder
         }
 
         // insert bulk cho nhanh
-        DB::connection('ecommerce')->table('products')->insert($data);
+        DB::table('products')->insert($data);
     }
 }

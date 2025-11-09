@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Ecommerce\Api\v1;
+namespace App\Http\Controllers\Api\v1;
 
+use App\Exceptions\OutOfStockException;
 use App\Http\Controllers\Controller;
-use App\Models\Ecommerce\Product;
-use Exception;
+use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -39,28 +41,47 @@ class CartApiController  extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            DB::connection('ecommerce')->beginTransaction();
-           
-            // Update order status
-            DB::connection('ecommerce')->commit();
+        // $cartItems = [
+        //     [
+        //         'user_id' => $userId,
+        //         'product_id' => 1,
+        //         'quantity' => 5,
+        //     ],
+        //     [
+        //         'user_id' => $userId,
+        //         'product_id' => 2,
+        //         'quantity' => 10,
+        //     ],
+        // ];
 
-            Log::info("user_id {$request->user_id} order successfully");
+        $userId = $request->user_id;
 
-            return response()->json([
-                'status' => 'success',
-                'message' => 'order successfully',
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        $product = Product::findOrFail($request->product_id);
+
+        if ($product->stock_available < $request->quantity) {
+            throw new OutOfStockException('Product is out of stock', [
+                'product_id' => $product->id,
+                'stock_available' => $product->stock_available,
             ]);
-        } catch (Throwable $th) {
-            DB::connection('ecommerce')->rollBack();
-
-            Log::error("user_id {$request->user_id} checkout error: {$th->getMessage()}");
-
-            return response()->json([
-                'status' => 'failed',
-                'message' => 'create order failed',
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
+        $cart = Cart::updateOrCreate(
+            ['user_id' => $userId, 'product_id' => $product->id],
+            ['quantity' => $request->quantity]
+        );
+
+        Log::info("user_id: {$request->user_id} add items to cart successfully");
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'add items to cart successfully',
+            'data' => $cart,
+        ]);
     }
 
     /**

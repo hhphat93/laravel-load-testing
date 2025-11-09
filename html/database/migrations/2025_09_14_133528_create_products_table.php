@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('ecommerce')->create('products', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');                       // Tên sản phẩm
             $table->string('slug')->unique();             // Đường dẫn SEO
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('price', 15, 2);              // Giá bán
             $table->decimal('discount_price', 15, 2)->nullable(); // Giá khuyến mãi
             $table->unsignedInteger('stock')->default(0); // Số lượng tồn kho
+            $table->unsignedInteger('stock_available')->default(0); // Số lượng tồn kho
 
             $table->string('sku')->unique()->nullable();  // Mã sản phẩm
             $table->string('image')->nullable();          // Ảnh chính
@@ -46,6 +47,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::connection('ecommerce')->dropIfExists('products');
+        Schema::dropIfExists('products');
     }
 };

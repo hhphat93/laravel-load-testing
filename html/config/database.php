@@ -102,68 +102,6 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
-        'employees' => [
-            'read' => [
-                'host' => env('DB_READ_EMPLOYEE_HOST', '127.0.0.1'),
-                'port' => env('DB_READ_EMPLOYEE_PORT', '3306'),
-                'database' => env('DB_READ_EMPLOYEE_DATABASE', 'forge'),
-                'username' => env('DB_READ_EMPLOYEE_USERNAME', 'forge'),
-                'password' => env('DB_READ_EMPLOYEE_PASSWORD', ''),
-            ],
-            'write' => [
-                'host' => env('DB_WRITE_EMPLOYEE_HOST', '127.0.0.1'),
-                'port' => env('DB_WRITE_EMPLOYEE_PORT', '3306'),
-                'database' => env('DB_WRITE_EMPLOYEE_DATABASE', 'forge'),
-                'username' => env('DB_WRITE_EMPLOYEE_USERNAME', 'forge'),
-                'password' => env('DB_WRITE_EMPLOYEE_PASSWORD', ''),
-            ],
-            'sticky' => true,
-            'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
-            'unix_socket' => env('DB_WRITE_EMPLOYEE_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-                // PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => false,
-            ]) : [],
-        ],
-
-        'movie_booking' => [
-            'read' => [
-                'host' => env('DB_READ_MOVIE_BOOKING_HOST', '127.0.0.1'),
-                'port' => env('DB_READ_MOVIE_BOOKING_PORT', '3306'),
-                'database' => env('DB_READ_MOVIE_BOOKING_DATABASE', 'forge'),
-                'username' => env('DB_READ_MOVIE_BOOKING_USERNAME', 'forge'),
-                'password' => env('DB_READ_MOVIE_BOOKING_PASSWORD', ''),
-            ],
-            'write' => [
-                'host' => env('DB_WRITE_MOVIE_BOOKING_HOST', '127.0.0.1'),
-                'port' => env('DB_WRITE_MOVIE_BOOKING_PORT', '3306'),
-                'database' => env('DB_WRITE_MOVIE_BOOKING_DATABASE', 'forge'),
-                'username' => env('DB_WRITE_MOVIE_BOOKING_USERNAME', 'forge'),
-                'password' => env('DB_WRITE_MOVIE_BOOKING_PASSWORD', ''),
-            ],
-            'sticky' => true,
-            'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
-            'unix_socket' => env('DB_WRITE_MOVIE_BOOKING_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-                // PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => false,
-            ]) : [],
-        ],
-
         'ecommerce' => [
             'read' => [
                 'host' => env('DB_WRITE_ECOMMERCE_HOST', '127.0.0.1'),//todo READ
